@@ -11,17 +11,6 @@ public class StatementFormatter {
         this.rentals = rentals;
     }
 
-    public static String statement(StatementFormatter statementFormatter) {
-        String result = formatHeader(statementFormatter.getCustomerName());
-        for (Rental rental : statementFormatter.getRentals()) {
-            result += formatBodyLine(rental);
-        }
-        result += formatFooter(
-                calculateTotalPrice(statementFormatter.getRentals()),
-                calculateTotalFrequentRenterPoints(statementFormatter.getRentals()));
-        return result;
-    }
-
     private static double calculateTotalPrice(List<Rental> rentals) {
         return rentals.stream()
                     .mapToDouble(Rental::calculatePrice)
@@ -54,5 +43,16 @@ public class StatementFormatter {
 
     public List<Rental> getRentals() {
         return rentals;
+    }
+
+    public String toString() {
+        String result = formatHeader(getCustomerName());
+        for (Rental rental : getRentals()) {
+            result += formatBodyLine(rental);
+        }
+        result += formatFooter(
+                calculateTotalPrice(getRentals()),
+                calculateTotalFrequentRenterPoints(getRentals()));
+        return result;
     }
 }
