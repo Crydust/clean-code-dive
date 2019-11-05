@@ -13,23 +13,29 @@ public class Rental {
     }
 
     public double calculateRentalPrice() {
-        double price = 0;
         switch (movie.getPriceCode()) {
-            case REGULAR:
+            case REGULAR: {
+                double price = 0;
                 price += 2;
                 if (daysRented > 2)
                     price += (daysRented - 2) * 1.5;
-                break;
-            case NEW_RELEASE:
+                return price;
+            }
+            case NEW_RELEASE: {
+                double price = 0;
                 price += daysRented * 3;
-                break;
-            case CHILDRENS:
+                return price;
+            }
+            case CHILDRENS: {
+                double price = 0;
                 price += 1.5;
                 if (daysRented > 3)
                     price += (daysRented - 3) * 1.5;
-                break;
+                return price;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + movie.getPriceCode());
         }
-        return price;
     }
 
     public Movie getMovie() {
