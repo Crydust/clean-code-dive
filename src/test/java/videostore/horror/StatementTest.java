@@ -2,20 +2,22 @@ package videostore.horror;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-
+import static videostore.horror.Movie.Type.CHILDRENS;
+import static videostore.horror.Movie.Type.NEW_RELEASE;
+import static videostore.horror.Movie.Type.REGULAR;
 
 public class StatementTest {
 
     @Test
     public void characterizationTest() {
-        final List<Rental> rentals = Arrays.asList(
-                new Rental(new Movie("Star Wars", Movie.Type.NEW_RELEASE), 6),
-                new Rental(new Movie("Sofia", Movie.Type.CHILDRENS), 7),
-                new Rental(new Movie("Inception", Movie.Type.REGULAR), 5));
+        final List<Rental> rentals = asList(
+                new Rental(new Movie("Star Wars", NEW_RELEASE), 6),
+                new Rental(new Movie("Sofia", CHILDRENS), 7),
+                new Rental(new Movie("Inception", REGULAR), 5));
 
         String expected = "Rental Record for John Doe\n"
                 + "	Star Wars	18.0\n"
