@@ -20,12 +20,16 @@ class Customer {
 
     public String statement() {
         double totalPrice = 0;
+        for (Rental rental : rentals) {
+            totalPrice += rental.calculatePrice();
+        }
         int totalFrequentRenterPoints = 0;
-        String result = formatHeader();
         for (Rental rental : rentals) {
             totalFrequentRenterPoints += rental.calculateFrequentRenterPoints();
+        }
+        String result = formatHeader();
+        for (Rental rental : rentals) {
             result += formatBodyLine(rental);
-            totalPrice += rental.calculatePrice();
         }
         result += formatFooter(totalPrice, totalFrequentRenterPoints);
         return result;
