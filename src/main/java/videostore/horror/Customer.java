@@ -29,12 +29,7 @@ class Customer {
             // determine amounts for each line
             int daysRented = rental.getDaysRented();
             double price = rental.calculatePrice();
-            // add frequent renter points
-            int frequentRenterPoints = 1;
-            // add bonus for a two day new release rental
-            if ((rental.getMovie().getPriceCode() == NEW_RELEASE)
-                    && rental.getDaysRented() > 1)
-                frequentRenterPoints++;
+            int frequentRenterPoints = calculateFrequentRenterPoints(rental);
             totalFrequentRenterPoints += frequentRenterPoints;
             // show figures line for this rental
             result += "\t" + movie.getTitle() + "\t"
@@ -46,6 +41,16 @@ class Customer {
         result += "You earned " + totalFrequentRenterPoints
                 + " frequent renter points";
         return result;
+    }
+
+    private static int calculateFrequentRenterPoints(Rental rental) {
+        // add frequent renter points
+        int frequentRenterPoints = 1;
+        // add bonus for a two day new release rental
+        if ((rental.getMovie().getPriceCode() == NEW_RELEASE)
+                && rental.getDaysRented() > 1)
+            frequentRenterPoints++;
+        return frequentRenterPoints;
     }
 
 }
