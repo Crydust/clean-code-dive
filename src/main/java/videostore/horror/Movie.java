@@ -5,18 +5,15 @@ public class Movie {
 		REGULAR,
 		NEW_RELEASE
 	};
-	public static final int CHILDRENS = 2;
-	public static final int REGULAR = 0;
-	public static final int NEW_RELEASE = 1;
 	private final String title;
-	private final int priceCode;
+	private final Type priceCode;
 
-	public Movie(String title, Integer priceCode) {
+	public Movie(String title, Type priceCode) {
 		this.title = title;
 		this.priceCode = priceCode;
 	}
 
-	public int getPriceCode() {
+	public Type getPriceCode() {
 		return priceCode;
 	}
 

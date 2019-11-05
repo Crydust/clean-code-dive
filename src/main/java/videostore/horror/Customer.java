@@ -1,7 +1,11 @@
 package videostore.horror;
 // coding kata derived from the Video Store example in Refactoring (1 ed) by Martin Fowler
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static videostore.horror.Movie.Type.NEW_RELEASE;
 
 class Customer {
 	private String name;
@@ -31,15 +35,15 @@ class Customer {
 			// determine amounts for each line
 			int dr = this.rentals.get(each);
 			switch (each.getPriceCode()) {
-			case Movie.REGULAR:
+			case REGULAR:
 				thisAmount += 2;
 				if (dr > 2)
 					thisAmount += (dr - 2) * 1.5;
 				break;
-			case Movie.NEW_RELEASE:
+			case NEW_RELEASE:
 				thisAmount += dr * 3;
 				break;
-			case Movie.CHILDRENS:
+			case CHILDRENS:
 				thisAmount += 1.5;
 				if (dr > 3)
 					thisAmount += (dr - 3) * 1.5;
@@ -48,7 +52,7 @@ class Customer {
 			// add frequent renter points
 			frequentRenterPoints++;
 			// add bonus for a two day new release rental
-			if ((each.getPriceCode() == Movie.NEW_RELEASE)
+			if ((each.getPriceCode() == NEW_RELEASE)
 					&& dr > 1)
 				frequentRenterPoints++;
 			// show figures line for this rental
