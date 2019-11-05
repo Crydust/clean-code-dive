@@ -1,5 +1,7 @@
 package videostore.horror;
 
+import static videostore.horror.Movie.Type.NEW_RELEASE;
+
 public class Rental {
     private final Movie movie;
     private final int daysRented;
@@ -10,6 +12,16 @@ public class Rental {
         }
         this.movie = movie;
         this.daysRented = daysRented;
+    }
+
+    public int calculateFrequentRenterPoints() {
+        // add frequent renter points
+        int frequentRenterPoints = 1;
+        // add bonus for a two day new release rental
+        if ((getMovie().getPriceCode() == NEW_RELEASE)
+                && getDaysRented() > 1)
+            frequentRenterPoints++;
+        return frequentRenterPoints;
     }
 
     public double calculatePrice() {

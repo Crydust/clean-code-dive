@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static videostore.horror.Movie.Type.NEW_RELEASE;
-
 class Customer {
     private final String name;
     private final List<Rental> rentals = new ArrayList<>();
@@ -29,7 +27,7 @@ class Customer {
             // determine amounts for each line
             int daysRented = rental.getDaysRented();
             double price = rental.calculatePrice();
-            int frequentRenterPoints = calculateFrequentRenterPoints(rental);
+            int frequentRenterPoints = rental.calculateFrequentRenterPoints();
             totalFrequentRenterPoints += frequentRenterPoints;
             // show figures line for this rental
             result += "\t" + movie.getTitle() + "\t"
@@ -41,16 +39,6 @@ class Customer {
         result += "You earned " + totalFrequentRenterPoints
                 + " frequent renter points";
         return result;
-    }
-
-    private static int calculateFrequentRenterPoints(Rental rental) {
-        // add frequent renter points
-        int frequentRenterPoints = 1;
-        // add bonus for a two day new release rental
-        if ((rental.getMovie().getPriceCode() == NEW_RELEASE)
-                && rental.getDaysRented() > 1)
-            frequentRenterPoints++;
-        return frequentRenterPoints;
     }
 
 }
