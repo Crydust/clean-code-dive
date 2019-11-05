@@ -20,47 +20,43 @@ class Customer {
         rentals.add(rental);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String statement() {
-        double totalAmount = 0;
+        double totalPrice = 0;
         int frequentRenterPoints = 0;
-        String result = "Rental Record for " + getName() + "\n";
+        String result = "Rental Record for " + name + "\n";
         for (Rental rental : rentals) {
-            double thisAmount = 0;
-            Movie each = (Movie) rental.getMovie();
+            double price = 0;
+            Movie movie = (Movie) rental.getMovie();
             // determine amounts for each line
-            int dr = rental.getDaysRented();
-            switch (each.getPriceCode()) {
+            int daysRented = rental.getDaysRented();
+            switch (movie.getPriceCode()) {
                 case REGULAR:
-                    thisAmount += 2;
-                    if (dr > 2)
-                        thisAmount += (dr - 2) * 1.5;
+                    price += 2;
+                    if (daysRented > 2)
+                        price += (daysRented - 2) * 1.5;
                     break;
                 case NEW_RELEASE:
-                    thisAmount += dr * 3;
+                    price += daysRented * 3;
                     break;
                 case CHILDRENS:
-                    thisAmount += 1.5;
-                    if (dr > 3)
-                        thisAmount += (dr - 3) * 1.5;
+                    price += 1.5;
+                    if (daysRented > 3)
+                        price += (daysRented - 3) * 1.5;
                     break;
             }
             // add frequent renter points
             frequentRenterPoints++;
             // add bonus for a two day new release rental
-            if ((each.getPriceCode() == NEW_RELEASE)
-                    && dr > 1)
+            if ((movie.getPriceCode() == NEW_RELEASE)
+                    && daysRented > 1)
                 frequentRenterPoints++;
             // show figures line for this rental
-            result += "\t" + each.getTitle() + "\t"
-                    + String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + movie.getTitle() + "\t"
+                    + String.valueOf(price) + "\n";
+            totalPrice += price;
         }
         // add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
+        result += "Amount owed is " + String.valueOf(totalPrice) + "\n";
         result += "You earned " + String.valueOf(frequentRenterPoints)
                 + " frequent renter points";
         return result;
