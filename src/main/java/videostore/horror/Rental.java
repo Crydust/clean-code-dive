@@ -1,5 +1,7 @@
 package videostore.horror;
 
+import java.util.Objects;
+
 import static videostore.horror.Movie.Type.NEW_RELEASE;
 
 class Rental {
@@ -29,38 +31,8 @@ class Rental {
     }
 
     private double calculatePrice(Movie.Type type) {
-        switch (type) {
-            case REGULAR:
-                return calculateRegularPrice();
-            case NEW_RELEASE:
-                return calculateNewReleasePrice();
-            case CHILDRENS:
-                return calculateChildrensPrice();
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-        }
-    }
-
-    private double calculateRegularPrice() {
-        double price = 2.0;
-        if (daysRented > 2) {
-            // add late fee
-            price += (daysRented - 2) * 1.5;
-        }
-        return price;
-    }
-
-    private double calculateNewReleasePrice() {
-        return daysRented * 3;
-    }
-
-    private double calculateChildrensPrice() {
-        double price = 1.5;
-        if (daysRented > 3) {
-            // add late fee
-            price += (daysRented - 3) * 1.5;
-        }
-        return price;
+        Objects.requireNonNull(type, "type");
+        return type.calculatePrice(daysRented);
     }
 
     public Movie getMovie() {
