@@ -18,35 +18,25 @@ public class Movie {
     }
 
     enum Type {
-        CHILDRENS {
-            @Override
-            double calculatePrice(int daysRented) {
-                double price = 1.5;
-                if (daysRented > 3) {
-                    // add late fee
-                    price += (daysRented - 3) * 1.5;
-                }
-                return price;
-            }
-        },
-        REGULAR {
-            @Override
-            double calculatePrice(int daysRented) {
-                double price = 2.0;
-                if (daysRented > 2) {
-                    // add late fee
-                    price += (daysRented - 2) * 1.5;
-                }
-                return price;
-            }
-        },
-        NEW_RELEASE {
-            @Override
-            double calculatePrice(int daysRented) {
-                return daysRented * 3;
-            }
-        };
+        CHILDRENS(1.5, 3, 1.5),
+        REGULAR(2.0, 2, 1.5),
+        NEW_RELEASE(0.0, 0, 3.0);
 
-        abstract double calculatePrice(int daysRented);
+        private final double basePrice;
+        private final int baseDays;
+        private final double feePerDay;
+
+        Type(double basePrice, int baseDays, double feePerDay) {
+            this.basePrice = basePrice;
+            this.baseDays = baseDays;
+            this.feePerDay = feePerDay;
+        }
+
+        double calculatePrice(int daysRented) {
+            if (daysRented > baseDays) {
+                return basePrice + (daysRented - baseDays) * feePerDay;
+            }
+            return basePrice;
+        }
     }
 }
