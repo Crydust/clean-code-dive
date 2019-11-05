@@ -19,18 +19,26 @@ class Customer {
     }
 
     public String statement() {
-        double totalPrice = rentals.stream()
-                .mapToDouble(Rental::calculatePrice)
-                .sum();
-        int totalFrequentRenterPoints = rentals.stream()
-                .mapToInt(Rental::calculateFrequentRenterPoints)
-                .sum();
         String result = formatHeader();
         for (Rental rental : rentals) {
             result += formatBodyLine(rental);
         }
-        result += formatFooter(totalPrice, totalFrequentRenterPoints);
+        result += formatFooter(
+                calculateTotalPrice(),
+                calculateTotalFrequentRenterPoints());
         return result;
+    }
+
+    private double calculateTotalPrice() {
+        return rentals.stream()
+                    .mapToDouble(Rental::calculatePrice)
+                    .sum();
+    }
+
+    private int calculateTotalFrequentRenterPoints() {
+        return rentals.stream()
+                .mapToInt(Rental::calculateFrequentRenterPoints)
+                .sum();
     }
 
     private String formatHeader() {
