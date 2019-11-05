@@ -30,25 +30,21 @@ public class Rental {
     }
 
     private double calculateRegularPrice() {
-        double price = 0;
-        price += 2;
-        if (daysRented > 2)
-            price += (daysRented - 2) * 1.5;
-        return price;
+        if (daysRented <= 2) {
+            return 2;
+        }
+        return 2 + (daysRented - 2) * 1.5;
     }
 
     private double calculateNewReleasePrice() {
-        double price = 0;
-        price += daysRented * 3;
-        return price;
+        return daysRented * 3;
     }
 
     private double calculateChildrensPrice() {
-        double price = 0;
-        price += 1.5;
-        if (daysRented > 3)
-            price += (daysRented - 3) * 1.5;
-        return price;
+        if (daysRented <= 3) {
+            return 1.5;
+        }
+        return 1.5 + (daysRented - 3) * 1.5;
     }
 
     public Movie getMovie() {
