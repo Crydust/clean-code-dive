@@ -28,7 +28,7 @@ class Customer {
             Movie movie = rental.getMovie();
             // determine amounts for each line
             int daysRented = rental.getDaysRented();
-            double price = calculateRentalPrice(rental);
+            double price = rental.calculateRentalPrice();
             // add frequent renter points
             frequentRenterPoints++;
             // add bonus for a two day new release rental
@@ -47,23 +47,4 @@ class Customer {
         return result;
     }
 
-    private static double calculateRentalPrice(Rental rental) {
-        double price = 0;
-        switch (rental.getMovie().getPriceCode()) {
-            case REGULAR:
-                price += 2;
-                if (rental.getDaysRented() > 2)
-                    price += (rental.getDaysRented() - 2) * 1.5;
-                break;
-            case NEW_RELEASE:
-                price += rental.getDaysRented() * 3;
-                break;
-            case CHILDRENS:
-                price += 1.5;
-                if (rental.getDaysRented() > 3)
-                    price += (rental.getDaysRented() - 3) * 1.5;
-                break;
-        }
-        return price;
-    }
 }
