@@ -4,18 +4,18 @@ public class Movie {
 	public static final int REGULAR = 0;
 	public static final int NEW_RELEASE = 1;
 	private String title;
-	private Integer priceCode;
+	private int priceCode;
 
 	public Movie(String title, Integer priceCode) {
 		this.title = title;
 		this.priceCode = priceCode;
 	}
 
-	public Integer getPriceCode() {
+	public int getPriceCode() {
 		return priceCode;
 	}
 
-	public void setPriceCode(Integer arg) {
+	public void setPriceCode(int arg) {
 		priceCode = arg;
 	}
 
