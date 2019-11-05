@@ -23,14 +23,11 @@ class Customer {
         int totalFrequentRenterPoints = 0;
         String result = "Rental Record for " + name + "\n";
         for (Rental rental : rentals) {
-            Movie movie = rental.getMovie();
             // determine amounts for each line
-            int daysRented = rental.getDaysRented();
             double price = rental.calculatePrice();
-            int frequentRenterPoints = rental.calculateFrequentRenterPoints();
-            totalFrequentRenterPoints += frequentRenterPoints;
+            totalFrequentRenterPoints += rental.calculateFrequentRenterPoints();
             // show figures line for this rental
-            result += "\t" + movie.getTitle() + "\t"
+            result += "\t" + rental.getMovie().getTitle() + "\t"
                     + price + "\n";
             totalPrice += price;
         }
