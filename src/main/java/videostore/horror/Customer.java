@@ -25,23 +25,23 @@ class Customer {
         int frequentRenterPoints = 0;
         String result = "Rental Record for " + name + "\n";
         for (Rental rental : rentals) {
-            double price = 0;
             Movie movie = rental.getMovie();
             // determine amounts for each line
             int daysRented = rental.getDaysRented();
-            switch (movie.getPriceCode()) {
+            double price = 0;
+            switch (rental.getMovie().getPriceCode()) {
                 case REGULAR:
                     price += 2;
-                    if (daysRented > 2)
-                        price += (daysRented - 2) * 1.5;
+                    if (rental.getDaysRented() > 2)
+                        price += (rental.getDaysRented() - 2) * 1.5;
                     break;
                 case NEW_RELEASE:
-                    price += daysRented * 3;
+                    price += rental.getDaysRented() * 3;
                     break;
                 case CHILDRENS:
                     price += 1.5;
-                    if (daysRented > 3)
-                        price += (daysRented - 3) * 1.5;
+                    if (rental.getDaysRented() > 3)
+                        price += (rental.getDaysRented() - 3) * 1.5;
                     break;
             }
             // add frequent renter points
