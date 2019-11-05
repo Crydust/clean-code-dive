@@ -16,7 +16,7 @@ public class Rental {
 
     public int calculateFrequentRenterPoints() {
         int frequentRenterPoints = 1;
-        final boolean isNewRelease = getMovie().getPriceCode() == NEW_RELEASE;
+        final boolean isNewRelease = getMovie().getType() == NEW_RELEASE;
         if (isNewRelease && daysRented > 1) {
             // bonus for a two day new release rental
             frequentRenterPoints++;
@@ -25,11 +25,11 @@ public class Rental {
     }
 
     public double calculatePrice() {
-        return calculatePrice(movie.getPriceCode());
+        return calculatePrice(movie.getType());
     }
 
-    private double calculatePrice(Movie.Type priceCode) {
-        switch (priceCode) {
+    private double calculatePrice(Movie.Type type) {
+        switch (type) {
             case REGULAR:
                 return calculateRegularPrice();
             case NEW_RELEASE:
@@ -37,7 +37,7 @@ public class Rental {
             case CHILDRENS:
                 return calculateChildrensPrice();
             default:
-                throw new IllegalStateException("Unexpected value: " + priceCode);
+                throw new IllegalStateException("Unexpected value: " + type);
         }
     }
 
