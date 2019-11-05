@@ -1,23 +1,23 @@
 package videostore.horror;
 // coding kata derived from the Video Store example in Refactoring (1 ed) by Martin Fowler
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static videostore.horror.Movie.Type.NEW_RELEASE;
 
 class Customer {
-	private String name;
-	private Map<Movie, Integer> rentals = new LinkedHashMap<>(); // preserves order
+	private final String name;
+	private final List<Rental> rentals = new ArrayList<>();
 
 	public Customer(String name) {
 		this.name = name;
 	};
 
-	public void addRental(Movie m, int d) {
-		if (d <= 0) throw new IllegalArgumentException("Negative days rented");
-		rentals.put(m, d);
+	public void addRental(Rental rental) {
+		Objects.requireNonNull(rental, "rental");
+		rentals.add(rental);
 	}
 
 	public String getName() {
@@ -27,27 +27,26 @@ class Customer {
 	public String statement() {
 		double totalAmount = 0;
 		int frequentRenterPoints = 0;
-		Iterator<Movie> rentals = this.rentals.keySet().iterator();
 		String result = "Rental Record for " + getName() + "\n";
-		while (rentals.hasNext()) {
+		for (Rental rental : rentals) {
 			double thisAmount = 0;
-			Movie each = (Movie) rentals.next();
+			Movie each = (Movie) rental.getMovie();
 			// determine amounts for each line
-			int dr = this.rentals.get(each);
+			int dr = rental.getDaysRented();
 			switch (each.getPriceCode()) {
-			case REGULAR:
-				thisAmount += 2;
-				if (dr > 2)
-					thisAmount += (dr - 2) * 1.5;
-				break;
-			case NEW_RELEASE:
-				thisAmount += dr * 3;
-				break;
-			case CHILDRENS:
-				thisAmount += 1.5;
-				if (dr > 3)
-					thisAmount += (dr - 3) * 1.5;
-				break;
+                case REGULAR:
+                    thisAmount += 2;
+                    if (dr > 2)
+                        thisAmount += (dr - 2) * 1.5;
+                    break;
+                case NEW_RELEASE:
+                    thisAmount += dr * 3;
+                    break;
+                case CHILDRENS:
+                    thisAmount += 1.5;
+                    if (dr > 3)
+                        thisAmount += (dr - 3) * 1.5;
+                    break;
 			}
 			// add frequent renter points
 			frequentRenterPoints++;
