@@ -23,13 +23,10 @@ class Customer {
         int totalFrequentRenterPoints = 0;
         String result = formatHeader();
         for (Rental rental : rentals) {
-            // determine amounts for each line
             totalFrequentRenterPoints += rental.calculateFrequentRenterPoints();
-            // show figures line for this rental
             result += formatBodyLine(rental);
             totalPrice += rental.calculatePrice();
         }
-        // add footer lines
         result += formatFooter(totalPrice, totalFrequentRenterPoints);
         return result;
     }
