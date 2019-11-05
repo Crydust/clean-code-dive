@@ -21,21 +21,31 @@ class Customer {
     public String statement() {
         double totalPrice = 0;
         int totalFrequentRenterPoints = 0;
-        String result = "Rental Record for " + name + "\n";
+        String result = formatHeader();
         for (Rental rental : rentals) {
             // determine amounts for each line
-            double price = rental.calculatePrice();
             totalFrequentRenterPoints += rental.calculateFrequentRenterPoints();
             // show figures line for this rental
-            result += "\t" + rental.getMovie().getTitle() + "\t"
-                    + price + "\n";
-            totalPrice += price;
+            result += formatBodyLine(rental);
+            totalPrice += rental.calculatePrice();
         }
         // add footer lines
-        result += "Amount owed is " + totalPrice + "\n";
-        result += "You earned " + totalFrequentRenterPoints
-                + " frequent renter points";
+        result += formatFooter(totalPrice, totalFrequentRenterPoints);
         return result;
+    }
+
+    private String formatHeader() {
+        return "Rental Record for " + name + "\n";
+    }
+
+    private String formatBodyLine(Rental rental) {
+        return "\t" + rental.getMovie().getTitle() + "\t"
+                + rental.calculatePrice() + "\n";
+    }
+
+    private static String formatFooter(double totalPrice, int totalFrequentRenterPoints) {
+        return "Amount owed is " + totalPrice + "\n"
+                + "You earned " + totalFrequentRenterPoints + " frequent renter points";
     }
 
 }
