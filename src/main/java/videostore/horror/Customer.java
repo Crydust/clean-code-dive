@@ -19,14 +19,12 @@ class Customer {
     }
 
     public String statement() {
-        double totalPrice = 0;
-        for (Rental rental : rentals) {
-            totalPrice += rental.calculatePrice();
-        }
-        int totalFrequentRenterPoints = 0;
-        for (Rental rental : rentals) {
-            totalFrequentRenterPoints += rental.calculateFrequentRenterPoints();
-        }
+        double totalPrice = rentals.stream()
+                .mapToDouble(Rental::calculatePrice)
+                .sum();
+        int totalFrequentRenterPoints = rentals.stream()
+                .mapToInt(Rental::calculateFrequentRenterPoints)
+                .sum();
         String result = formatHeader();
         for (Rental rental : rentals) {
             result += formatBodyLine(rental);
