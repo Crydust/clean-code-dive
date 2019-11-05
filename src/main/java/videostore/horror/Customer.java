@@ -26,7 +26,7 @@ class Customer {
         String result = "Rental Record for " + name + "\n";
         for (Rental rental : rentals) {
             double price = 0;
-            Movie movie = (Movie) rental.getMovie();
+            Movie movie = rental.getMovie();
             // determine amounts for each line
             int daysRented = rental.getDaysRented();
             switch (movie.getPriceCode()) {
@@ -52,12 +52,12 @@ class Customer {
                 frequentRenterPoints++;
             // show figures line for this rental
             result += "\t" + movie.getTitle() + "\t"
-                    + String.valueOf(price) + "\n";
+                    + price + "\n";
             totalPrice += price;
         }
         // add footer lines
-        result += "Amount owed is " + String.valueOf(totalPrice) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints)
+        result += "Amount owed is " + totalPrice + "\n";
+        result += "You earned " + frequentRenterPoints
                 + " frequent renter points";
         return result;
     }
