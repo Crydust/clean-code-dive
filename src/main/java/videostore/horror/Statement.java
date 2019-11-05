@@ -2,11 +2,11 @@ package videostore.horror;
 
 import java.util.List;
 
-public class StatementFormatter {
+public class Statement {
     private final String customerName;
     private final List<Rental> rentals;
 
-    public StatementFormatter(String customerName, List<Rental> rentals) {
+    public Statement(String customerName, List<Rental> rentals) {
         this.customerName = customerName;
         this.rentals = rentals;
     }

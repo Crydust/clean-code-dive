@@ -19,7 +19,7 @@ class Customer {
     }
 
     public String statement() {
-        return new StatementFormatter(customerName, rentals).toString();
+        return new Statement(customerName, rentals).toString();
     }
 
 }
