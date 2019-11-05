@@ -28,7 +28,7 @@ class Customer {
             Movie movie = rental.getMovie();
             // determine amounts for each line
             int daysRented = rental.getDaysRented();
-            double price = rental.calculateRentalPrice();
+            double price = rental.calculatePrice();
             // add frequent renter points
             frequentRenterPoints++;
             // add bonus for a two day new release rental
