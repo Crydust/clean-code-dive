@@ -2,7 +2,7 @@ package videostore.horror;
 
 import static videostore.horror.Movie.Type.NEW_RELEASE;
 
-public class Rental {
+class Rental {
     private final Movie movie;
     private final int daysRented;
 
@@ -42,10 +42,12 @@ public class Rental {
     }
 
     private double calculateRegularPrice() {
-        if (daysRented <= 2) {
-            return 2;
+        double price = 2.0;
+        if (daysRented > 2) {
+            // add late fee
+            price += (daysRented - 2) * 1.5;
         }
-        return 2 + (daysRented - 2) * 1.5;
+        return price;
     }
 
     private double calculateNewReleasePrice() {
@@ -53,10 +55,12 @@ public class Rental {
     }
 
     private double calculateChildrensPrice() {
-        if (daysRented <= 3) {
-            return 1.5;
+        double price = 1.5;
+        if (daysRented > 3) {
+            // add late fee
+            price += (daysRented - 3) * 1.5;
         }
-        return 1.5 + (daysRented - 3) * 1.5;
+        return price;
     }
 
     public Movie getMovie() {

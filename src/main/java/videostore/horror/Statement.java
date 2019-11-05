@@ -2,7 +2,7 @@ package videostore.horror;
 
 import java.util.List;
 
-public class Statement {
+class Statement {
     private final String customerName;
     private final List<Rental> rentals;
 
@@ -37,11 +37,11 @@ public class Statement {
                 + "You earned " + totalFrequentRenterPoints + " frequent renter points";
     }
 
-    public String getCustomerName() {
+    private String getCustomerName() {
         return customerName;
     }
 
-    public List<Rental> getRentals() {
+    private List<Rental> getRentals() {
         return rentals;
     }
 
